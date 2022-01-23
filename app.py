@@ -3,27 +3,24 @@ import os
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
+from components import *
+from functions import *
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LITERA])
 
 server = app.server
 
-app.layout = html.Div([
-    html.H2('Hello World'),
-    dcc.Dropdown(
-        id='dropdown',
-        options=[{'label': i, 'value': i} for i in ['LA', 'NYC', 'MTL']],
-        value='LA'
-    ),
+app.layout = dbc.Container(fluid=True,children=[
+    html.Img(id='banner',src='/assets/rooted-csa-header-2.jpg'),
+    html.H2('Growing Good Health'),
+    dbc.Row(id='form',children=[dbc.Col(id='left-pad',width=1),dbc.Col(form,width=5),dbc.Col()]),
+    dbc.Row(children=[dbc.Col(width=1),dbc.Col(check_button,width=5)]),
     html.Div(id='display-value')
 ])
 
-@app.callback(dash.dependencies.Output('display-value', 'children'),
-                [dash.dependencies.Input('dropdown', 'value')])
-def display_value(value):
-    return 'You have selected "{}"'.format(value)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
